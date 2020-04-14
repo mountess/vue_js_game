@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+  <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="game" style="width: 1200px; margin: 0 auto;">
+        <template v-if='wellcome'>
+            <h1>{{ message }}</h1>
+            <input v-model="userName" style="font-size: 14pt;">
+            <button v-on:click='start' style="font-size: 14pt;">Продолжить</button>
+        </template>
+        <template v-else>
+            <h1 class="text-center">KILL THE MONSTER</h1>
+            <div class="statusGame">
+                <h2 class="text-center">{{ userName }}</h2>
+                <div v-bind:class="['bgGrey','text-center']">
+                    <div class="bgGreen white" v-bind:style="userHelthsBar" style="height: 35px;">{{ userHelths }}%
+                    </div>
+                </div>
+            </div>
+            <div class="statusGame">
+                <h2 class="text-center">{{ monsterName }}</h2>
+                <div v-bind:class="['bgGrey','text-center']">
+                    <div class="bgGreen white" v-bind:style="monsterHelthsBar" style="height: 35px;">
+                        {{ monsterHealth }}%
+                    </div>
+                </div>
+            </div>
+            <div class="masterDiv" style="height: 80px;">
+                <div class="btnHolder">
+                    <template v-if='!dead'>
+                        <button class="btn bgRed" v-on:click="atack">ATTACK</button>
+                        <button class="btn bgOrange" v-on:click="special">SPECIAL ATTACK</button>
+                        <button class="btn bgGreen" v-on:click="heal">HEAL</button>
+                        <button class="btn" v-on:click="giveUp">GIVE UP</button>
+                    </template>
+                    <template v-else>
+                        <button class="btn bgGreen" v-on:click="newGame">NEW GAME</button>
+                    </template>
+                </div>
+            </div>
+            <div class="masterDiv">
+                <div class="hitem white text-center" v-bind:class="item.class" v-for="item in historyItems">
+                    {{ item.from }} {{ item.method }} {{ item.to }} for {{ item.value }}
+                </div>
+            </div>
+        </template>
+    </div>
+<script src="app.js"></script>
+</body>
+
+</html>
